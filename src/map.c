@@ -4,92 +4,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAMANHO_MATRIZ 30
+#define LINHA 30
+#define COLUNA 30
 
-//Colocar Depois em outro arquivo, função random num
-int random_num(int max, int min)
+void map(const char *caminho_mapa, char mapMatriz[LINHA][COLUNA + 1] ) //Passar o local do arquivo do mapa como parametro da função
 {
+    FILE *mapa_txt; // Struct File precisa ser ponteiro
 
-    return rand() % (max - min + 1) + min;
+    mapa_txt = fopen(caminho_mapa, "r");
 
-}
-
-void map()
-{
-    char mapMatriz[30][30];
-
-
-/*P Posic¸ao inicial do jogador ˜
- E  Inimigos (1 ou mais)
- Z Plataformas
- S Subida de escada
- D Descida de escada
- F Porta (Final da Fase)
- H Escada (Nenhum efeito apenas sprite visual)
-*/
-
-
-/*
-Seed de geração de mapas aleatórios
-1. gera número aleatório de Z, intervalo de [2,28], para linha [3]
-2. todo Z deve estar obrigatoriamente colado [linha] [coluna+1]
-3. 2 char S na linha+1 de Z, gera número de [coluna_S] aleatório para cada S, primeiro S, no intervalo [Z_min,Z_max], segundo S [min:>Posicao_S + 2, max: Z_max]
-4. Gera aleatório para cada linha+1 na coluna_s, char H no intervalo de [1,3]
-5. Gera D, 1 D sempre na linha_h + 1
-6. if linha == 28 --> linha 28 coluna_aleatoria == S ---> linha 29 coluna_aleatoria == F
-6. loop to 1.
-*/
-
-    for(int linha = 0; linha < TAMANHO_MATRIZ; linha++)
+    if(mapa_txt == NULL)
     {
-        //Instancia a primeira linha, deve sempre conter F e D(1 ou 2);
-        if(linha == 0)
-        {
-            //Posicao de F
-            int rand_pos_F = random_num(29,1);
-            mapMatriz[1][rand_pos_F] = 'F';
-
-            //Posicao de D, pode instanciar no máximo 2 char D na linha 1
-            for(int D = 0; D < random_num(2,1);D++)
-                mapMatriz[1][rand_pos_F + random_num(29,1)] = 'D';
-        }
-        else
-        {
-            for(int coluna = 0; coluna < TAMANHO_MATRIZ; coluna++)
+        printf("Mapa não encontrado!\n");
+    }
+    else
+    {
+        for(int j = 0; j < LINHA; j++)
             {
-        
-                mapMatriz[linha][coluna] = ' ';
+                if(fgets(mapMatriz[j],COLUNA + 3,mapa_txt) != NULL) 
 
+                /*O Tamanho do bufer é COLUNA + 3 pois temos 31 colunas por conta do \n no final, 
+                logo como fgets lê tamanho - 1 para encaixar o \0, precisamos de um vetor de 33 char
+                para garantir que vai ler o \n e o \0 */
+
+                    printf("%s", mapMatriz[j]);
+                else
+                    break;
             }
-        }
-
-            
         
-
+        fclose(mapa_txt);
     }
-
-
-
-    //Loops de impressão da matrix
-
-    for(int linha = 0; linha < TAMANHO_MATRIZ; linha++)
-    {
-        for(int coluna = 0; coluna < TAMANHO_MATRIZ; coluna++)
-        {
-            printf("%c", mapMatriz[linha][coluna]);
-        }
-
-        printf("\n");
-    }
-
-
-
-
 }
 
 
-int main(void) {
-    srand(time(NULL));
-    map();
-    return 0;
-}
+
+/*IMPORTANTE: DESCOMENTE A FUNÇÃO ABAIXO E COMPILE ESTE ARQUIVO PARA TESTAR MAP.C*/
+
+// int main(void) { //Não esquecer de remover essa main, está aqui só para testar o map.c
+//     srand(time(NULL));
+//     map("../maps/mapa_n_vel_1.txt");
+//     return 0;
+// }
