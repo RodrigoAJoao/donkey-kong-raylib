@@ -2,42 +2,46 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 #include "playerMovement.h"
 #include "map.h"
-#include "render_mapa.h"
+#include "renderMapa.h"
+#include "initPos.h"
 
-#define LARGURA 990 // 990 pois temos a matriz do mapa 30x30 e uma margem de 90 para caber tudo na tela
-#define ALTURA 990
+#define LARGURA 960 // 990 pois temos a matriz do mapa 30x30 e uma margem de 90 para caber tudo na tela
+#define ALTURA 930
 
 int main(){
+    //Inicializa seed de número aleatório
+    srand(time(NULL));
+    //Inicializa janela, com certo tamanho e titulo
+    InitWindow(LARGURA, ALTURA, "Donkey Kong Raylib");
+    // Ajusta a janela para 60 frames por segundo
+    SetTargetFPS(60);
 
-    srand(time(NULL)); //Inicializa seed de número aleatório
-
-    InitWindow(LARGURA, ALTURA, "Teclas"); //Inicializa janela, com certo tamanho e titulo
-    SetTargetFPS(60);// Ajusta a janela para 60 frames por segundo
-
-	Vector2 playerPosition = {(float)LARGURA/2,(float)ALTURA/2};
-
+    //Coluna + 1 para comportar o \n e o \0 no final
+    char mapMatriz[LINHA][COLUNA + 1];
     //Função que carrega o mapa a partir do txt
-    char mapMatriz[LINHA][COLUNA + 1];//Coluna + 1 para comportar o \n e o \0 no final
     map("maps/mapa_n_vel_1.txt", mapMatriz);
 
+    //Posição do Player
+    Vector2 playerPosition = {0,0};
+    //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
+    initPos(mapMatriz, &playerPosition);
+    
 
     //Este laco repete enquanto a janela nao for fechada
     //Utilizamos ele para atualizar o estado do programa / jogo
     while (!WindowShouldClose())
     {
         //Função atualiza a posição do player a cada frame
-		playerMovement(&playerPosition.x,&playerPosition.y);
+		playerMovement(&playerPosition,mapMatriz);
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
 		BeginDrawing(); //Inicia o ambiente de desenho na tela
 			ClearBackground(RAYWHITE); //Limpa a tela e define cor de fundo
-			DrawRectangle(playerPosition.x,playerPosition.y,30,30,RED);
-            render_mapa(mapMatriz);
-            /*DrawRectangle(60,ALTURA - 60,30,30,BLUE);
-            DrawRectangle(90,ALTURA - 60,30,30,BLUE);
-            DrawRectangle(60,60,30,30,BLUE);*/
+			DrawRectangle(playerPosition.x,playerPosition.y,30,30,PINK);
+            renderMapa(mapMatriz);
 		EndDrawing(); //Finaliza o ambiente de desenho na tela
     }
 

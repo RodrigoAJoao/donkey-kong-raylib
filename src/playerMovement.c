@@ -1,19 +1,33 @@
 #include "playerMovement.h"
 #include "raylib.h"
+#include "map.h"
+#include "stdio.h"
+#include "renderMapa.h"
 
-void playerMovement(float *playerPositionX, float *playerPositionY)
+void playerMovement(Vector2 *playerPosition,char mapMatriz[LINHA][COLUNA + 1])
 {
-    // Trata entrada do usuario e atualiza estado do jogo
-		if (IsKeyPressed(KEY_RIGHT)) {
-			*playerPositionX += 2.0f;
+	//Aqui faz a transformação de posição em aspect para a posição na matriz
+	int colunaPlayer = (int)((playerPosition->x - 30) / 30); 
+	int linhaPlayer = (int)((playerPosition->y - 30) / 30);
+
+	printf("linhaPlayer: %d,colunaPlayer: %d", linhaPlayer,colunaPlayer);
+	//printf("mapMatriz[%d][%d] = %c", linhaPlayer, colunaPlayer, mapMatriz[linhaPlayer+1][colunaPlayer]);
+
+	//Checa se tem uma plataforma Z embaixo do jogador
+	if(mapMatriz[linhaPlayer+1][colunaPlayer] == 'Z')
+	{
+		// Trata entrada do usuario e atualiza estado do jogo
+		if (IsKeyDown(KEY_RIGHT)) {
+			playerPosition->x += 2;
 		}
-		if (IsKeyPressed(KEY_LEFT)) {
-			*playerPositionX -= 2.0f;
+		if (IsKeyDown(KEY_LEFT)) {
+			playerPosition->x -= 2;
 		}
-		if (IsKeyPressed(KEY_UP)) {
-			*playerPositionY -= 2.0f;
+	}
+	if(mapMatriz[linhaPlayer][colunaPlayer] == 'S' || mapMatriz[linhaPlayer - 1][colunaPlayer] == 'H' || mapMatriz[linhaPlayer - 1][colunaPlayer] == 'D')
+	{
+		if (IsKeyDown(KEY_UP)) {
+			playerPosition->y -= 2;
 		}
-		if (IsKeyPressed(KEY_DOWN)) {
-			*playerPositionY += 2.0f;
-		}
+	}
 }

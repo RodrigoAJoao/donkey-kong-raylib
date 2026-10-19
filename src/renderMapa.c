@@ -14,14 +14,14 @@
 */
 #define LARGURA 960 //Passar como parametro da função ou dentro de um include
 #define ALTURA 960  
-#define MARGEM 60
+#define MARGEM 30
 
 
-void render_mapa(char mapMatriz[LINHA][COLUNA + 1])
+void renderMapa(char mapMatriz[LINHA][COLUNA + 1])
 {
     for(int i = 0; i < LINHA; i++)
     {
-        for(int j = 0; j < COLUNA; j++)
+        for(int j = 0; j < COLUNA + 1; j++)
         {
             switch(mapMatriz[i][j]) //Switch case com cada case sendo uma das letras e com isso renderizando cada sprite correspondente
             {
@@ -42,6 +42,8 @@ void render_mapa(char mapMatriz[LINHA][COLUNA + 1])
                     break;
                 case('D'):
                     DrawRectangle(MARGEM + (j*30),MARGEM + (i*30),30,30,DARKGREEN);
+                    break;
+                default:
                     break;
             }
         }

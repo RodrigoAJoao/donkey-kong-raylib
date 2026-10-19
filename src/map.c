@@ -21,13 +21,15 @@ void map(const char *caminho_mapa, char mapMatriz[LINHA][COLUNA + 1] ) //Passar 
     {
         for(int j = 0; j < LINHA; j++)
             {
-                if(fgets(mapMatriz[j],COLUNA + 3,mapa_txt) != NULL) 
+                if(fgets(mapMatriz[j],COLUNA + 3,mapa_txt) != NULL) {
 
                 /*O Tamanho do bufer é COLUNA + 3 pois temos 31 colunas por conta do \n no final, 
                 logo como fgets lê tamanho - 1 para encaixar o \0, precisamos de um vetor de 33 char
                 para garantir que vai ler o \n e o \0 */
 
-                    printf("%s", mapMatriz[j]);
+                printf("%s", mapMatriz[j]);
+                
+                }
                 else
                     break;
             }
@@ -35,13 +37,3 @@ void map(const char *caminho_mapa, char mapMatriz[LINHA][COLUNA + 1] ) //Passar 
         fclose(mapa_txt);
     }
 }
-
-
-
-/*IMPORTANTE: DESCOMENTE A FUNÇÃO ABAIXO E COMPILE ESTE ARQUIVO PARA TESTAR MAP.C*/
-
-// int main(void) { //Não esquecer de remover essa main, está aqui só para testar o map.c
-//     srand(time(NULL));
-//     map("../maps/mapa_n_vel_1.txt");
-//     return 0;
-// }
