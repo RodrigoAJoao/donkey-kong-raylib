@@ -28,6 +28,11 @@ int main(){
     Vector2 playerPosition = {0,0};
     //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
     initPos(mapMatriz, &playerPosition);
+    //Flag de se o player está em uma escada
+    int subirEscada = 0;
+    //Pega a linha e coluna de D quando o jogador está numa escada
+    int linhaEscada = 0;
+    int colunaEscada = 0;
     
 
     //Este laco repete enquanto a janela nao for fechada
@@ -35,13 +40,13 @@ int main(){
     while (!WindowShouldClose())
     {
         //Função atualiza a posição do player a cada frame
-		playerMovement(&playerPosition,mapMatriz);
+		playerMovement(&playerPosition,mapMatriz,&subirEscada,&linhaEscada,&colunaEscada);
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
 		BeginDrawing(); //Inicia o ambiente de desenho na tela
 			ClearBackground(RAYWHITE); //Limpa a tela e define cor de fundo
-			DrawRectangle(playerPosition.x,playerPosition.y,30,30,PINK);
             renderMapa(mapMatriz);
+            DrawRectangle(playerPosition.x,playerPosition.y,30,30,PINK);
 		EndDrawing(); //Finaliza o ambiente de desenho na tela
     }
 
