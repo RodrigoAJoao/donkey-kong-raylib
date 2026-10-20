@@ -31,8 +31,11 @@ int main(){
     //Flag de se o player está em uma escada
     int subirEscada = 0;
     //Pega a linha e coluna de D quando o jogador está numa escada
-    int linhaEscada = 0;
+    int linhaInicioEscada = 0;
+    int linhaFimEscada = 0;
     int colunaEscada = 0;
+    //IMPORTANTE TRANSFORMAR ISSO EM STRUCT OU COLOCAR UMA LÓGICA MELHOR ORGANIZADA
+
     
 
     //Este laco repete enquanto a janela nao for fechada
@@ -40,7 +43,7 @@ int main(){
     while (!WindowShouldClose())
     {
         //Função atualiza a posição do player a cada frame
-		playerMovement(&playerPosition,mapMatriz,&subirEscada,&linhaEscada,&colunaEscada);
+		playerMovement(&playerPosition,mapMatriz,&subirEscada,&linhaInicioEscada,&linhaFimEscada,&colunaEscada);
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
 		BeginDrawing(); //Inicia o ambiente de desenho na tela

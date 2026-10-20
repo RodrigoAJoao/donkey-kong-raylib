@@ -5,6 +5,6 @@
 #include "raylib.h"
 
 // Function prototype (declaration)
-void playerMovement(Vector2 *playerPosition, char mapMatriz[LINHA][COLUNA + 1], int *subirEscada, int *linhaEscada,int *colunaEscada);
+void playerMovement(Vector2 *playerPosition, char mapMatriz[LINHA][COLUNA + 1], int *subirEscada, int *linhaIncioEscada, int *linhaFimEscada,int *colunaEscada);
 
 #endif
