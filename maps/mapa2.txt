@@ -1,25 +1,25 @@
-               F              
-          ZZZZZDZZZZ          
+            F  D            
+          ZZZZZHZZZZ          
                H              
                H              
                H              
-               S              
-ZZZZDZZZZZZZZZZZZZZZ          
+    D          S              
+ZZZZHZZZZZZZZZZZZZZZ          
     H                         
     H                         
     H                         
-    S     E                  
-    ZZZZZZZZZZZZZZZZZZZZDZZZZZ
+    S     E             D     
+    ZZZZZZZZZZZZZZZZZZZZHZZZZZ
                         H     
                         H     
                         H     
-                        S     
-ZZZZDZZZZZZZZZZZZZZZZZZZZZ    
+    D                   S     
+ZZZZHZZZZZZZZZZZZZZZZZZZZZ    
     H                         
     H                         
     H                         
-    S      E                  
-    ZZZZZZZZZZZZZZZZZZZZZDZZZZ
+    S      E             D     
+    ZZZZZZZZZZZZZZZZZZZZZHZZZZ
                          H    
                          H    
                          H    

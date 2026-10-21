@@ -13,7 +13,7 @@
  H Escada (Nenhum efeito apenas sprite visual)
 */
 #define LARGURA 960 //Passar como parametro da função ou dentro de um include
-#define ALTURA 960  
+#define ALTURA 930  
 #define MARGEM 30
 
 

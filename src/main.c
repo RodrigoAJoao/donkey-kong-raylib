@@ -21,8 +21,10 @@ int main(){
 
     //Coluna + 1 para comportar o \n e o \0 no final
     char mapMatriz[LINHA][COLUNA + 1];
+    //memset limpa todo o lixo que tiver na memória
+    memset(mapMatriz, ' ', sizeof(mapMatriz));
     //Função que carrega o mapa a partir do txt
-    map("maps/mapa_n_vel_1.txt", mapMatriz);
+    map("maps/mapa1.txt", mapMatriz);
 
     //Posição do Player
     Vector2 playerPosition = {0,0};
