@@ -1,0 +1,20 @@
+#include "raylib.h"
+
+#define LARGURA 960 // PASSAR DEPOIS COMO PARAMETRO
+#define ALTURA 930
+
+void rankingMenu()
+{
+    // FORMULA PARA O CENTRO DE TEXTO -> (LARGURA/2) - (16 * número de caracteres da palavra) + 9
+    ClearBackground(BLACK);
+
+
+    DrawText("LEADERBOARD",(LARGURA/2) - 185, 50,50,WHITE);
+    DrawText("RANK",(LARGURA/8) - 73,150,40,WHITE);
+    DrawText("NAME",((LARGURA/4) + (LARGURA/8)) - 73,150,40,WHITE);
+    DrawText("TIME",(LARGURA/2) + ((LARGURA/8) - 73),150,40,WHITE);
+    DrawText("SCORE",(((LARGURA/4) + (LARGURA/8)) - 73) + (LARGURA/2),150,40,WHITE);
+
+
+    DrawLine(LARGURA/2,0,LARGURA/2,ALTURA,RED); //RETIRAR DEPOIS, SERVE PARA TRAÇAR UMA LINHA VERMELHA NO MEIO DA TELA PARA POSICIONAMENTO
+}

@@ -3,6 +3,6 @@
 #define MAIN_MENU_H
 
 
-void mainMenu(int *flagMenu);
+void mainMenu(int *flagMenu,int *flagRanking, int *flagStart);
 
 #endif

@@ -8,9 +8,12 @@
 #include "renderMapa.h"
 #include "initPos.h"
 #include "mainMenu.h"
+#include "rankingMenu.h"
+#include"score.h"
+
 
 #define LARGURA 960 // 990 pois temos a matriz do mapa 30x30 e uma margem de 90 para caber tudo na tela
-#define ALTURA 930
+#define ALTURA 960
 
 int main(){
     //Inicializa seed de número aleatório
@@ -41,27 +44,44 @@ int main(){
     int colunaEscada = 0;
     //IMPORTANTE TRANSFORMAR ISSO EM STRUCT OU COLOCAR UMA LÓGICA MELHOR ORGANIZADA
 
+    //ESTADOS
     int flagMenu = 1;
+    int flagRanking = 0;
+    int flagStart = 0;
+
+    //SCORE
+    float highScore = 0;
+    int oneUp = 0;
+    float tempo = 0;
+    int time = 0;
+
     
 
     //Este laco repete enquanto a janela nao for fechada
     //Utilizamos ele para atualizar o estado do programa / jogo
     while (!WindowShouldClose())
     {
-        //Função atualiza a posição do player a cada frame
-		playerMovement(&playerPosition,mapMatriz,&subirEscada,&linhaInicioEscada,&linhaFimEscada,&colunaEscada);
+        if(flagMenu == 0 && flagRanking == 0)
+        {   //Função atualiza a posição do player a cada frame
+		    playerMovement(&playerPosition,mapMatriz,&subirEscada,&linhaInicioEscada,&linhaFimEscada,&colunaEscada);
+        }
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
 		BeginDrawing(); //Inicia o ambiente de desenho na tela
-            if(flagMenu == 1)
+            if(flagMenu == 1 && flagRanking == 0)
             {
-                mainMenu(&flagMenu);
+                mainMenu(&flagMenu,&flagRanking,&flagStart);
             }
-            else
+            else if(flagRanking == 1 && flagMenu == 0)
             {
-                ClearBackground(RAYWHITE); //Limpa a tela e define cor de fundo
+                rankingMenu();
+            }
+            else if(flagStart == 1)
+            {
+                ClearBackground(BLACK); //Limpa a tela e define cor de fundo
                 renderMapa(mapMatriz);
                 DrawRectangle(playerPosition.x,playerPosition.y,30,30,PINK);
+                score(&highScore,&tempo,&time,&oneUp);
             }
 		EndDrawing(); //Finaliza o ambiente de desenho na tela
     }

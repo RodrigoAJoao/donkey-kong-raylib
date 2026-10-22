@@ -19,7 +19,7 @@ void map(const char *caminho_mapa, char mapMatriz[LINHA][COLUNA + 1] ) //Passar 
     }
     else
     {
-        for(int j = 0; j < LINHA; j++)
+        for(int j = 3; j < LINHA + 3; j++) // Começa em 3 pra dar margem no topo
             {
                 if(fgets(mapMatriz[j],COLUNA + 3,mapa_txt) != NULL) {
 
