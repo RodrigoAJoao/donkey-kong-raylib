@@ -17,7 +17,7 @@ void playerMovement(Vector2 *playerPosition,char mapMatriz[LINHA][COLUNA + 1], i
 	printf("mapMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapMatriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
 
 	//Checa se tem uma plataforma Z embaixo do jogador
-	if(mapMatriz[linhaPlayer+1][colunaPlayer] == 'Z' || mapMatriz[linhaPlayer][colunaPlayer] == 'D') //O jogador somente consegue se mover horizontalmente se tem Z Embaixo dele ou D quando sair de escadas
+	if(mapMatriz[linhaPlayer+1][colunaPlayer] == 'Z' || mapMatriz[linhaPlayer][colunaPlayer] == 'D' && *subirEscada == 0) //O jogador somente consegue se mover horizontalmente se tem Z Embaixo dele ou D quando sair de escadas
 	{
 		// Trata entrada do usuario e atualiza estado do jogo
 		if (IsKeyDown(KEY_RIGHT)) {
