@@ -1,7 +1,5 @@
 #include "raylib.h"
-
-#define LARGURA 960 // PASSAR DEPOIS COMO PARAMETRO
-#define ALTURA 930
+#include "game_structs.h"
 
 void rankingMenu()
 {

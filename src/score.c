@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include "raylib.h"
-
-#define LARGURA 960 // PASSAR DEPOIS COMO PARAMETRO
-#define ALTURA 960
+#include "game_structs.h"
 
 
-void score(float *highScore,float *tempo,int *time,int *oneUp)
+void score(SCORE *score)
 {
 
     //TITULO DE CADA COMPONENTE
@@ -14,11 +12,11 @@ void score(float *highScore,float *tempo,int *time,int *oneUp)
     DrawText("TIME", ((3 * LARGURA)/4),15,30,RED);
     
     
-    *tempo += GetFrameTime();
-    printf("tempo: %f", *tempo);
-    DrawText(TextFormat("%05i",*highScore),(LARGURA/2)-45,50,30,WHITE);
-    DrawText(TextFormat("%05i",*oneUp),(LARGURA/4) - 75,50,30,WHITE);
-    DrawText(TextFormat("%03i",(int)*tempo),((3 * LARGURA)/4) + 20,50,30,WHITE);
+    score->tempo += GetFrameTime();
+    //printf("tempo: %f", *tempo);
+    DrawText(TextFormat("%05i",score->highScore),(LARGURA/2)-45,50,30,WHITE);
+    DrawText(TextFormat("%05i",score->oneUp),(LARGURA/4) - 75,50,30,WHITE);
+    DrawText(TextFormat("%03i",(int)score->tempo),((3 * LARGURA)/4) + 20,50,30,WHITE);
 
     
 

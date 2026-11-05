@@ -1,9 +1,8 @@
 #include "raylib.h"
+#include "game_structs.h"
 
-#define LARGURA 960 // PASSAR DEPOIS COMO PARAMETRO
-#define ALTURA 960
 
-void mainMenu(int *flagMenu,int *flagRanking, int *flagStart)
+void mainMenu(ESTADOS *gameState)
 {
     Rectangle botao_start = { (LARGURA/2) - 100, ALTURA/3, 200, 75};
     Rectangle botao_ranking = { (LARGURA/2) - 100, ALTURA/3 + 150, 250, 75};
@@ -23,9 +22,9 @@ void mainMenu(int *flagMenu,int *flagRanking, int *flagStart)
 
         if(CheckCollisionPointRec(mouse_pos,botao_start))
         {
-            *flagMenu = 0;
-            *flagStart = 1;
-            *flagRanking = 0;
+            gameState->flagMenu = 0;
+            gameState->flagStart = 1;
+            gameState->flagRanking = 0;
         }
         else if(CheckCollisionPointRec(mouse_pos,botao_sair))
         {
@@ -33,9 +32,9 @@ void mainMenu(int *flagMenu,int *flagRanking, int *flagStart)
         }
         else if (CheckCollisionPointRec(mouse_pos,botao_ranking))
         {
-            *flagMenu = 0;
-            *flagRanking = 1;
-            *flagStart = 0;
+            gameState->flagMenu = 0;
+            gameState->flagRanking = 1;
+            gameState->flagStart = 0;
         }
         
     }

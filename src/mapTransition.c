@@ -7,9 +7,11 @@
 #include "mapTransition.h"
 #include <string.h>
 #include "initPos.h"
+#include "game_structs.h"
 
-void mapTransition(Vector2 *playerPosition, int linhaPlayer, int colunaPlayer, char mapmatriz[LINHA][COLUNA + 1])
+void mapTransition(PLAYER *p, MAP *mapa, ENEMY *e, int linhaPlayer, int colunaPlayer)
 {
-    map("maps/mapa2.txt", mapmatriz);
-    initPos(mapmatriz, playerPosition);
+    strcpy(mapa->local,"maps/mapa2.txt");
+    map(mapa);
+    initPos(mapa,p,e);
 }

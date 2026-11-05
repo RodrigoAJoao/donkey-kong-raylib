@@ -1,10 +1,10 @@
 // math_utils.h
 #ifndef PLAYER_MOVEMENT_H
 #define PLAYER_MOVEMENT_H
-#include "map.h"
-#include "raylib.h"
+
+#include "game_structs.h"
 
 // Function prototype (declaration)
-void playerMovement(Vector2 *playerPosition, char mapMatriz[LINHA][COLUNA + 1], int *subirEscada, int *linhaIncioEscada, int *linhaFimEscada,int *colunaEscada);
+void playerMovement(PLAYER *p, MAP *map, ENEMY *e);
 
 #endif

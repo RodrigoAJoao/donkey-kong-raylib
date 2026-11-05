@@ -3,6 +3,8 @@
 #define SCORE_H
 
 
-void score(float *highScore,float *tempo,int *time,int *oneUp);
+#include "game_structs.h"
+
+void score(SCORE *score);
 
 #endif
