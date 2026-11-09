@@ -16,19 +16,22 @@
 
 
 int main(){
-
-    //PLAYER
-    PLAYER player = {0};
-    //ENEMY
-    ENEMY enemy = {0};
+   
     //ESTADOS
     ESTADOS gameState = {1,0,0};
     //SCORE
     SCORE gameScore ={0};
+
     //MAPA
     MAP mapa = {.local = "maps/mapa1.txt"};
     memset(mapa.matriz, ' ', sizeof(mapa.matriz));
     map(&mapa);
+
+    //PLAYER
+    PLAYER player = {.velocity.y = 5, .velocity.x = 5};
+    //ENEMY
+    ENEMY enemy[mapa.enemyCounter];
+
 
 
     //Inicializa seed de número aleatório
@@ -39,7 +42,7 @@ int main(){
     SetTargetFPS(60);
 
     //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
-    initPos(&mapa,&player,&enemy);
+    initPos(&mapa,&player,enemy);
     
 
     //Este laco repete enquanto a janela nao for fechada
@@ -48,7 +51,13 @@ int main(){
     {
         if(gameState.flagMenu == 0 && gameState.flagRanking == 0)
         {   //Função atualiza a posição do player a cada frame
-		    playerMovement(&player,&mapa,&enemy);
+		    playerMovement(&player,&mapa,enemy);
+            for(int i = 0; i < mapa.enemyCounter; i++)
+            {
+                EnemyMovement(&enemy[i],&mapa);
+            }
+            
+             
         }
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
@@ -56,6 +65,7 @@ int main(){
             if(gameState.flagMenu == 1 && gameState.flagRanking == 0)
             {
                 mainMenu(&gameState);
+                
             }
             else if(gameState.flagRanking == 1 && gameState.flagMenu == 0)
             {
@@ -67,6 +77,12 @@ int main(){
                 renderMapa(&mapa);
                 DrawRectangle(player.position.x,player.position.y,30,30,PINK);
                 score(&gameScore);
+
+                for(int i = 0; i < mapa.enemyCounter; i++)
+                {
+                    printf("enemy_pos[%d] = %0.1f\n", i,enemy[i].position.x);
+                    DrawRectangle(enemy[i].position.x,enemy[i].position.y,30,30,RED);
+                }
             }
 		EndDrawing(); //Finaliza o ambiente de desenho na tela
     }

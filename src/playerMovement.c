@@ -17,43 +17,64 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	int linhaPlayer = (int)((p->position.y - 30) / 30);
 	float linhaPlayerFloat = ((p->position.y - 30) / 30);
 
-	
-	printf("mapaMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapa->matriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
-	printf("%d", p->isJumping);
+	char charPosicaoAtual = mapa->matriz[linhaPlayer][colunaPlayer];
+	char charChao = mapa->matriz[linhaPlayer + 1][colunaPlayer];
+
+	float dt = GetFrameTime();
+
+
+	//printf("mapaMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapa->matriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
+	//printf("%d", p->isJumping);
 
 	//MOVIMENTO HORIZONTAL
 	//Checa se tem uma plataforma Z embaixo do jogador
-	if( mapa->matriz[linhaPlayer][colunaPlayer] == 'S'|| mapa->matriz[linhaPlayer][colunaPlayer] == ' ' || mapa->matriz[linhaPlayer][colunaPlayer] == 'D' || mapa->matriz[linhaPlayer][colunaPlayer] == 'P' && p->subirEscada == 0) //O jogador somente consegue se mover horizontalmente se tem Z Embaixo dele ou D quando sair de escadas
+	if(p->subirEscada == 0) //O jogador somente consegue se mover horizontalmente se tem Z Embaixo dele ou D quando sair de escadas
 	{
+
 			// Trata entrada do usuario e atualiza estado do jogo
 			if (IsKeyDown(KEY_RIGHT)) {
-				p->position.x += 5;
+				p->velocity.x = 300;
+				p->position.x += p->velocity.x * dt;
 			}
 			if (IsKeyDown(KEY_LEFT)) {
-				p->position.x -= 5;
+				p->velocity.x = -300;
+				p->position.x += p->velocity.x * dt;
 			}
 
 			if(IsKeyPressed(KEY_SPACE) && p->isJumping == 0){
 				p->isJumping = 1;
-				p->velocity.y = 7.5;
+				p->velocity.y = 400;
+
+				if(IsKeyDown(KEY_LEFT))
+				{
+					p->velocity.x = -300;
+				}
+				else if(IsKeyDown(KEY_RIGHT))
+				{
+					p->velocity.x = 300;
+				}
+				else
+				{
+					p->velocity.x = 0;
+				}
+				
 			}
 
-	}
-	else
-	{
-		printf("Morreu"); //Checagem se o jogador caiu da plataforma. garante que ele não está em uma escada
 	}
 
 	if(p->isJumping == 1)	
 	{
-		p->position.y -= p->velocity.y;
-		p->velocity.y -= 1;
+		printf("p->velocity.y: %0.2f\n", p->velocity.y);
+		p->position.y -= p->velocity.y * dt;
+		p->position.x += p->velocity.x/2 * dt;
+		p->velocity.y -= 1500 * dt;
+		
 		if(p->velocity.y < 0){
-			if(mapa->matriz[linhaPlayer + 1][colunaPlayer] == 'Z' && linhaPlayerFloat == linhaPlayer)
+			if(charChao == 'Z' || charPosicaoAtual == 'D' && linhaPlayerFloat == linhaPlayer)
 			{
 				p->position.y = (linhaPlayerFloat * 30) + 30;
 				p->velocity.y = 0;
-				p->isJumping =0;
+				p->isJumping = 0;
 
 			}	
 		}	
@@ -64,7 +85,7 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	
 	//Cáluculo da posição de D quando o jogador estiver em uma posição S, garante que seja modular independente do número de H entre S e D.
 	//A flag subirEscada garante que essa função seja chamada somente quando o jogador estiver em S
-	if(mapa->matriz[linhaPlayer][colunaPlayer] == 'S' && p->subirEscada == 0)
+	if(charPosicaoAtual == 'S' && p->subirEscada == 0)
 	{
 			if(IsKeyDown(KEY_UP))
 			{
@@ -87,7 +108,7 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	}
 
 	//Calculo de S, baseado em D, serve para se o jogador estiver descendo
-	if(mapa->matriz[linhaPlayer][colunaPlayer] == 'D' && p->subirEscada == 0)
+	if(charPosicaoAtual == 'D' && p->subirEscada == 0)
 	{
 		if(IsKeyDown(KEY_DOWN)) // Garante que o jogador só vai interagir com a escada ao clickar no botão
 		{
@@ -141,7 +162,7 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 
 
 	//TRANSIÇÃO DE FASE
-	if(mapa->matriz[linhaPlayer][colunaPlayer] == 'F')
+	if(charPosicaoAtual == 'F')
 	{
 		mapTransition(p,mapa,e,linhaPlayer, colunaPlayer);
 	}

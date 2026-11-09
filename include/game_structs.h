@@ -29,6 +29,7 @@ typedef struct{
     int linha;
     char matriz[LINHA][COLUNA + 1];
     char local[16];
+    int enemyCounter;
 }MAP;
 
 typedef struct {
@@ -47,6 +48,7 @@ typedef struct{
 
 typedef struct {
     Vector2 position;
+    Vector2 velocity;
 }ENEMY;
 
 

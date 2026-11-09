@@ -32,9 +32,6 @@ void renderMapa(MAP *mapa)
                 case('H'):
                     DrawRectangle(MARGEM + (j*30),MARGEM + (i*30),30,30,GREEN);
                     break;
-                case('E'):
-                    DrawRectangle(MARGEM + (j*30),MARGEM + (i*30),30,30,RED);
-                    break;
                 case('F'):
                     DrawRectangle(MARGEM + (j*30),MARGEM + (i*30),30,30,YELLOW);
                     break;
