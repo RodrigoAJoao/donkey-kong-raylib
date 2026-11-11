@@ -12,10 +12,10 @@
 void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 {
 	//Aqui faz a transformação de posição em aspect para a posição na matriz
-	int colunaPlayer = (int)((p->position.x - 30) / 30);
-	float colunaPlayerFloat = ((p->position.x - 30) / 30);
-	int linhaPlayer = (int)((p->position.y - 30) / 30);
-	float linhaPlayerFloat = ((p->position.y - 30) / 30);
+	int colunaPlayer = (int)((p->position.x - COLUNA) / COLUNA);
+	float colunaPlayerFloat = ((p->position.x - COLUNA) / COLUNA);
+	int linhaPlayer = (int)((p->position.y - LINHA) / LINHA);
+	float linhaPlayerFloat = ((p->position.y - LINHA) / LINHA);
 
 	char charPosicaoAtual = mapa->matriz[linhaPlayer][colunaPlayer];
 	char charChao = mapa->matriz[linhaPlayer + 1][colunaPlayer];
@@ -72,7 +72,7 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 		if(p->velocity.y < 0){
 			if(charChao == 'Z' || charPosicaoAtual == 'D' && linhaPlayerFloat == linhaPlayer)
 			{
-				p->position.y = (linhaPlayerFloat * 30) + 30;
+				p->position.y = (int)((linhaPlayerFloat * 30) + 30);
 				p->velocity.y = 0;
 				p->isJumping = 0;
 

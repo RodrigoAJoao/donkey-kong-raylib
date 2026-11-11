@@ -12,6 +12,7 @@
 #include"score.h"
 #include "EnemyMovement.h"
 #include "game_structs.h"
+#include "updateCollision.h"
 
 
 
@@ -23,7 +24,7 @@ int main(){
     SCORE gameScore ={0};
 
     //MAPA
-    MAP mapa = {.local = "maps/mapa1.txt"};
+    MAP mapa = {.local = "maps/mapa1.txt", .enemyCounter = 0};
     memset(mapa.matriz, ' ', sizeof(mapa.matriz));
     map(&mapa);
 
@@ -44,6 +45,7 @@ int main(){
     //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
     initPos(&mapa,&player,enemy);
     
+    
 
     //Este laco repete enquanto a janela nao for fechada
     //Utilizamos ele para atualizar o estado do programa / jogo
@@ -56,6 +58,8 @@ int main(){
             {
                 EnemyMovement(&enemy[i],&mapa);
             }
+
+            updateCollision(&player,enemy,&mapa);
             
              
         }
@@ -73,6 +77,7 @@ int main(){
             }
             else if(gameState.flagStart == 1)
             {
+
                 ClearBackground(BLACK); //Limpa a tela e define cor de fundo
                 renderMapa(&mapa);
                 DrawRectangle(player.position.x,player.position.y,30,30,PINK);
@@ -80,7 +85,7 @@ int main(){
 
                 for(int i = 0; i < mapa.enemyCounter; i++)
                 {
-                    printf("enemy_pos[%d] = %0.1f\n", i,enemy[i].position.x);
+                    //printf("enemy_pos[%d] = %0.1f\n", i,enemy[i].position.x);
                     DrawRectangle(enemy[i].position.x,enemy[i].position.y,30,30,RED);
                 }
             }

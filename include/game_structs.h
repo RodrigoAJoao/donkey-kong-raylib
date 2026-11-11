@@ -9,7 +9,7 @@
 #define ALTURA 960
 #define COLUNA 30
 #define LINHA 30
-#define MARGEM 30
+#define MARGEM 30   
 
 
 // Declaração das structs usadas no jogo
