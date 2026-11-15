@@ -17,16 +17,14 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	int linhaPlayer = (int)((p->position.y - LINHA) / LINHA);
 	float linhaPlayerFloat = ((p->position.y - LINHA) / LINHA);
 
+	if (colunaPlayer < 0) colunaPlayer = 0;
+    if (colunaPlayer >= COLUNA) colunaPlayer = COLUNA - 1;
+    if (linhaPlayer < 0) linhaPlayer = 0;
+    if (linhaPlayer >= LINHA - 1) linhaPlayer = LINHA - 2; // -2 para proteger o linhaPlayer+1
+	
+
 	char charPosicaoAtual = mapa->matriz[linhaPlayer][colunaPlayer];
 	char charChao = mapa->matriz[linhaPlayer + 1][colunaPlayer];
-
-	float dt = GetFrameTime();
-	if(dt > 0.016)
-	{
-		dt = 0.016;
-	}
-
-
 	//printf("mapaMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapa->matriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
 	//printf("%d", p->isJumping);
 
@@ -37,25 +35,25 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 
 			// Trata entrada do usuario e atualiza estado do jogo
 			if (IsKeyDown(KEY_RIGHT)) {
-				p->velocity.x = 300;
-				p->position.x += p->velocity.x * dt;
+				p->velocity.x = 5;
+				p->position.x += p->velocity.x;
 			}
 			if (IsKeyDown(KEY_LEFT)) {
-				p->velocity.x = -300;
-				p->position.x += p->velocity.x * dt;
+				p->velocity.x = -5;
+				p->position.x += p->velocity.x;
 			}
 
 			if(IsKeyPressed(KEY_SPACE) && p->isJumping == 0){
 				p->isJumping = 1;
-				p->velocity.y = 400;
+				p->velocity.y = 10;
 
 				if(IsKeyDown(KEY_LEFT))
 				{
-					p->velocity.x = -300;
+					p->velocity.x = -5;
 				}
 				else if(IsKeyDown(KEY_RIGHT))
 				{
-					p->velocity.x = 300;
+					p->velocity.x = 5;
 				}
 				else
 				{
@@ -69,15 +67,15 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	if(p->isJumping == 1)	
 	{
 		
-		p->position.y -= p->velocity.y * dt;
-		p->position.x += p->velocity.x/2 * dt;
-		p->velocity.y -= 1500 * dt;
-		//printf("p->velocity.y: %d\n",(int)((linhaPlayerFloat * 30) + 30));
+		p->position.y -= p->velocity.y;
+		p->position.x += p->velocity.x/2;
+		p->velocity.y -= 1;
+		//printf("p->velocity.y: %0.2f\n",(floor((linhaPlayerFloat * 30) + 30)));
 		
 		if(p->velocity.y < 0){
 			if(charChao == 'Z' || charPosicaoAtual == 'D' && linhaPlayerFloat == linhaPlayer)
 			{
-				p->position.y = (int)((linhaPlayerFloat * 30) + 30);
+				p->position.y = ((int)((linhaPlayerFloat * 30) + 30));
 				p->velocity.y = 0;
 				p->isJumping = 0;
 

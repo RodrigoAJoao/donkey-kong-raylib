@@ -4,8 +4,10 @@
 
 void scoreCounter(PLAYER *p, ENEMY *e, MAP *m, SCORE *s, ESTADOS *state)
 {
+    s->tempo += GetFrameTime();
     int i = 0;
     Rectangle playerHitbox = { p->position.x, p->position.y,30,30};
+    
 
     if(m->enemyCounter > 0)
     {
@@ -17,21 +19,25 @@ void scoreCounter(PLAYER *p, ENEMY *e, MAP *m, SCORE *s, ESTADOS *state)
 
             if(CheckCollisionRecs(playerHitbox, enemyTrigger[i]))
             {
-                if(state->flagScore <= 0.0)
+                if(s->popUpTimer <= 0.0)
                 {
-                    state->flagScore = 1.5f;
+                    s->popUpTimer = 1.5f;
                     s->scorePopUp.x = e[i].position.x;
                     s->scorePopUp.y = e[i].position.y;
                     s->highScore += 500;
+                    s->flagPopUp = 1;
 
                 }
             }
         }
 
-        if(state->flagScore > 0.0f)
+        if(s->popUpTimer > 0.0f)
         {
-            state->flagScore -= GetFrameTime();
-            DrawText("500", s->scorePopUp.x, s->scorePopUp.y + 30,30,WHITE);
+            s->popUpTimer -= GetFrameTime();
+        }
+        else
+        {
+            s->flagPopUp = 0;
         }
     }
 

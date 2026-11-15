@@ -19,7 +19,7 @@
 int main(){
    
     //ESTADOS
-    ESTADOS gameState = {1,0,0};
+    ESTADOS gameState = {1,0,0,.flagPause = 1};
     //SCORE
     SCORE gameScore ={0};
 
@@ -31,7 +31,9 @@ int main(){
     //PLAYER
     PLAYER player = {.velocity.y = 5, .velocity.x = 5};
     //ENEMY
+    // ENEMY
     ENEMY enemy[mapa.enemyCounter];
+    memset(enemy, 0, sizeof(ENEMY) * (mapa.enemyCounter > 0 ? mapa.enemyCounter : 1)); //TIRAR DEPOIS
 
 
 
@@ -53,25 +55,35 @@ int main(){
     //Utilizamos ele para atualizar o estado do programa / jogo
     while (!WindowShouldClose())
     {
-        if(gameState.flagMenu == 0 && gameState.flagRanking == 0)
-        {   //Função atualiza a posição do player a cada frame
-		    playerMovement(&player,&mapa,enemy);
-            for(int i = 0; i < mapa.enemyCounter; i++)
-            {
-                EnemyMovement(&enemy[i],&mapa);
+        if(gameState.flagStart == 1)
+        {
+            if(gameState.flagPause == 1)
+            {   //Função atualiza a posição do player a cada frame
+                playerMovement(&player,&mapa,enemy);
+                for(int i = 0; i < mapa.enemyCounter; i++)
+                {
+                    EnemyMovement(&enemy[i],&mapa);
+                }
+
+                updateCollision(&player,enemy,&mapa); // Checa colisão com o player
+                scoreCounter(&player,enemy,&mapa, &gameScore, &gameState); // Checa se o jogador pulou por cima de um inimigo e atualiza o score
             }
 
-            updateCollision(&player,enemy,&mapa);
+            if(IsKeyPressed(KEY_TAB))
+            {
+                gameState.flagPause *= -1;
+            }
         }
+
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
 		BeginDrawing(); //Inicia o ambiente de desenho na tela
-            if(gameState.flagMenu == 1 && gameState.flagRanking == 0)
+            if(gameState.flagMenu == 1)
             {
                 mainMenu(&gameState);
                 
             }
-            else if(gameState.flagRanking == 1 && gameState.flagMenu == 0)
+            else if(gameState.flagRanking == 1)
             {
                 rankingMenu();
             }
@@ -81,13 +93,17 @@ int main(){
                 ClearBackground(BLACK); //Limpa a tela e define cor de fundo
                 renderMapa(&mapa);
                 DrawRectangle(player.position.x,player.position.y,30,30,PINK);
-                score(&gameScore);
-                scoreCounter(&player,enemy,&mapa, &gameScore, &gameState);
 
+                score(&gameScore);
                 for(int i = 0; i < mapa.enemyCounter; i++)
                 {
                     //printf("enemy_pos[%d] = %0.1f\n", i,enemy[i].position.x);
                     DrawRectangle(enemy[i].position.x,enemy[i].position.y,30,30,RED);
+                }
+
+                if(gameState.flagPause == -1)
+                {
+                    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.6f));
                 }
             }
 		EndDrawing(); //Finaliza o ambiente de desenho na tela

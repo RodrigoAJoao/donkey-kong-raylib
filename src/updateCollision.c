@@ -1,7 +1,7 @@
 #include "game_structs.h"
 #include <stdio.h>
 
-void updateCollision(PLAYER *p, ENEMY *e, MAP *m)
+void updateCollision(PLAYER *p, ENEMY *e, MAP *m, ESTADOS *s)
 {
     //printf("enemyCounter %d", m->enemyCounter);
     Rectangle playerHitbox = { p->position.x, p->position.y,30,30};
@@ -16,7 +16,7 @@ void updateCollision(PLAYER *p, ENEMY *e, MAP *m)
 
             if(CheckCollisionRecs(playerHitbox, enemyHitbox[i]))
             {
-                //printf("MORREU\n");
+                //printf("MORREU\n"); //FUNÇÃO DEATH AQUI
             }
         }
     }

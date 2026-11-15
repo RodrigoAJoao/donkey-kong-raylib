@@ -22,6 +22,7 @@ typedef struct{
     int linhaInicioEscada;
     int linhaFimEscada;
     int colunaEscada;
+    int vida;
 } PLAYER;
 
 typedef struct{
@@ -36,7 +37,6 @@ typedef struct {
     int flagMenu;
     int flagRanking;
     int flagStart;
-    float flagScore;
     int flagPause;
 } ESTADOS;
 
@@ -46,6 +46,8 @@ typedef struct{
     float tempo;
     int time;
     Vector2 scorePopUp;
+    float popUpTimer;
+    int flagPopUp;
 } SCORE;
 
 
