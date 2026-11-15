@@ -13,7 +13,7 @@
 #include "EnemyMovement.h"
 #include "game_structs.h"
 #include "updateCollision.h"
-
+#include "scoreCounter.h"
 
 
 int main(){
@@ -44,6 +44,8 @@ int main(){
 
     //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
     initPos(&mapa,&player,enemy);
+
+    int flagCollision = 0; //Colocar em struct depois
     
     
 
@@ -60,8 +62,6 @@ int main(){
             }
 
             updateCollision(&player,enemy,&mapa);
-            
-             
         }
 
 		// Atualiza o que eh mostrado na tela a partir do estado do jogo
@@ -82,6 +82,7 @@ int main(){
                 renderMapa(&mapa);
                 DrawRectangle(player.position.x,player.position.y,30,30,PINK);
                 score(&gameScore);
+                scoreCounter(&player,enemy,&mapa, &gameScore, &gameState);
 
                 for(int i = 0; i < mapa.enemyCounter; i++)
                 {

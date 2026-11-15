@@ -16,7 +16,7 @@ void updateCollision(PLAYER *p, ENEMY *e, MAP *m)
 
             if(CheckCollisionRecs(playerHitbox, enemyHitbox[i]))
             {
-                printf("MORREU\n");
+                //printf("MORREU\n");
             }
         }
     }

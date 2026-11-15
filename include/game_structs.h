@@ -36,13 +36,16 @@ typedef struct {
     int flagMenu;
     int flagRanking;
     int flagStart;
+    float flagScore;
+    int flagPause;
 } ESTADOS;
 
 typedef struct{
-    float highScore;
+    int highScore;
     int oneUp;
     float tempo;
     int time;
+    Vector2 scorePopUp;
 } SCORE;
 
 

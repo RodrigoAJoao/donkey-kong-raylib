@@ -21,6 +21,10 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	char charChao = mapa->matriz[linhaPlayer + 1][colunaPlayer];
 
 	float dt = GetFrameTime();
+	if(dt > 0.016)
+	{
+		dt = 0.016;
+	}
 
 
 	//printf("mapaMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapa->matriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
@@ -64,10 +68,11 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 
 	if(p->isJumping == 1)	
 	{
-		printf("p->velocity.y: %0.2f\n", p->velocity.y);
+		
 		p->position.y -= p->velocity.y * dt;
 		p->position.x += p->velocity.x/2 * dt;
 		p->velocity.y -= 1500 * dt;
+		//printf("p->velocity.y: %d\n",(int)((linhaPlayerFloat * 30) + 30));
 		
 		if(p->velocity.y < 0){
 			if(charChao == 'Z' || charPosicaoAtual == 'D' && linhaPlayerFloat == linhaPlayer)

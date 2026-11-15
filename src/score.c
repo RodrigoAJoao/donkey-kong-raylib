@@ -14,6 +14,7 @@ void score(SCORE *score)
     
     score->tempo += GetFrameTime();
     //printf("tempo: %f", *tempo);
+    //printf("HIGHScore = %d\n", score->highScore);
     DrawText(TextFormat("%05i",score->highScore),(LARGURA/2)-45,50,30,WHITE);
     DrawText(TextFormat("%05i",score->oneUp),(LARGURA/4) - 75,50,30,WHITE);
     DrawText(TextFormat("%03i",(int)score->tempo),((3 * LARGURA)/4) + 20,50,30,WHITE);

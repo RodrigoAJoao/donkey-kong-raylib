@@ -12,6 +12,8 @@
 void mapTransition(PLAYER *p, MAP *mapa, ENEMY *e, int linhaPlayer, int colunaPlayer)
 {
     strcpy(mapa->local,"maps/mapa2.txt");
+    mapa->enemyCounter = 0;
+    memset(mapa->matriz, ' ', sizeof(mapa->matriz));
     map(mapa);
     initPos(mapa,p,e);
 }
