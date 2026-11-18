@@ -23,6 +23,7 @@ typedef struct{
     int linhaFimEscada;
     int colunaEscada;
     int vida;
+    int cooldownHit;
 } PLAYER;
 
 typedef struct{
@@ -38,6 +39,7 @@ typedef struct {
     int flagRanking;
     int flagStart;
     int flagPause;
+    int flagGameOver;
 } ESTADOS;
 
 typedef struct{

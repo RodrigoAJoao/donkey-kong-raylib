@@ -14,6 +14,9 @@
 #include "game_structs.h"
 #include "updateCollision.h"
 #include "scoreCounter.h"
+#include "pauseMenu.h"
+#include "GameOver.h"
+#include "resetGame.h"
 
 
 int main(){
@@ -21,7 +24,7 @@ int main(){
     //ESTADOS
     ESTADOS gameState = {1,0,0,.flagPause = 1};
     //SCORE
-    SCORE gameScore ={0};
+    SCORE gameScore ={.oneUp = 3};
 
     //MAPA
     MAP mapa = {.local = "maps/mapa1.txt", .enemyCounter = 0};
@@ -29,7 +32,7 @@ int main(){
     map(&mapa);
 
     //PLAYER
-    PLAYER player = {.velocity.y = 5, .velocity.x = 5};
+    PLAYER player = {.velocity.y = 5, .velocity.x = 5, .cooldownHit = 0, .vida = 3};
     //ENEMY
     // ENEMY
     ENEMY enemy[mapa.enemyCounter];
@@ -47,10 +50,6 @@ int main(){
     //Atribui a posição inicial do player (e inimigos(colocar depois)) com base na matriz do txt
     initPos(&mapa,&player,enemy);
 
-    int flagCollision = 0; //Colocar em struct depois
-    
-    
-
     //Este laco repete enquanto a janela nao for fechada
     //Utilizamos ele para atualizar o estado do programa / jogo
     while (!WindowShouldClose())
@@ -65,13 +64,20 @@ int main(){
                     EnemyMovement(&enemy[i],&mapa);
                 }
 
-                updateCollision(&player,enemy,&mapa); // Checa colisão com o player
+                updateCollision(&player,enemy,&mapa, &gameScore, &gameState); // Checa colisão com o player
                 scoreCounter(&player,enemy,&mapa, &gameScore, &gameState); // Checa se o jogador pulou por cima de um inimigo e atualiza o score
             }
 
             if(IsKeyPressed(KEY_TAB))
             {
                 gameState.flagPause *= -1;
+            }
+
+            if(gameState.flagGameOver == 1)
+            {
+                
+                //GameOver(&gameState);
+                resetGame(&player,enemy,&mapa,&gameScore,&gameState);
             }
         }
 
@@ -92,6 +98,7 @@ int main(){
 
                 ClearBackground(BLACK); //Limpa a tela e define cor de fundo
                 renderMapa(&mapa);
+                //printf("player.position.x - %0.2f player.position.y - %0.2f\n", player.position.x,player.position.y);
                 DrawRectangle(player.position.x,player.position.y,30,30,PINK);
 
                 score(&gameScore);
@@ -103,7 +110,7 @@ int main(){
 
                 if(gameState.flagPause == -1)
                 {
-                    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, 0.6f));
+                    pauseMenu(&gameState);
                 }
             }
 		EndDrawing(); //Finaliza o ambiente de desenho na tela

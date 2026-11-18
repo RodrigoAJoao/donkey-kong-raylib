@@ -5,6 +5,6 @@
 #include "game_structs.h"
 
 // Function prototype (declaration)
-void updateCollision(PLAYER *p, ENEMY *e, MAP *m);
+void updateCollision(PLAYER *p, ENEMY *e, MAP *m, SCORE *s,ESTADOS *state);
 
 #endif

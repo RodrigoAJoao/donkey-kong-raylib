@@ -19,7 +19,7 @@ void initPos(MAP *mapa, PLAYER *p, ENEMY *e)
                 //Transforma a posição na matriz em posição de aspect
                 p->position.x = MARGEM + (j*30);
                 p->position.y = MARGEM + (i*30);
-                printf("mapMatriz[%d][%d]",i,j);
+                //printf("mapMatriz[%d][%d]",i,j);
             }
             else if(mapa->matriz[i][j] == 'E')
             {

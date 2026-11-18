@@ -8,13 +8,19 @@ void score(SCORE *score)
 
     //TITULO DE CADA COMPONENTE
     DrawText("HIGH SCORE", (LARGURA/2) - 90,15,30,RED);
-    DrawText("1UP", (LARGURA/4) - 50,15,30,RED);
+    DrawText("LIFE", (LARGURA/4) - 50,15,30,RED);
     DrawText("TIME", ((3 * LARGURA)/4),15,30,RED);
     //printf("tempo: %f", *tempo);
     //printf("HIGHScore = %d\n", score->highScore);
     DrawText(TextFormat("%05i",score->highScore),(LARGURA/2)-45,50,30,WHITE);
-    DrawText(TextFormat("%05i",score->oneUp),(LARGURA/4) - 75,50,30,WHITE);
+    //DrawText(TextFormat("%05i",score->oneUp),(LARGURA/4) - 75,50,30,WHITE);
     DrawText(TextFormat("%03i",(int)score->tempo),((3 * LARGURA)/4) + 20,50,30,WHITE);
+
+
+    for(int i = 0; i < score->oneUp; i++)
+    {
+        DrawRectangle(((LARGURA/4) - 75) + i * 50,50,30,30,PINK);
+    }
 
     
     if(score->flagPopUp == 1)
