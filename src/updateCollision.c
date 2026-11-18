@@ -21,27 +21,12 @@ void updateCollision(PLAYER *p, ENEMY *e, MAP *m, SCORE *s, ESTADOS *state)
             {
                 //printf("p->cooldownHit - %d", p->cooldownHit);
                 //ADD COOLDOWN DO HIT DO INIMIGO
-                    p->vida--;
-                    s->oneUp--;
+                state->flagDamage = 1;
 
-                    
-                    if(p->vida <= 0)
-                    {
-                        state->flagGameOver = 1;
-                    }
-                    else
-                    {
-                        p->velocity.y = 0;
-                        p->isJumping = 0;
-                        p->subirEscada = 0;
-
-                        initPos(m,p,e);
-                    }
-
-                    break;
-                }
-                
+                break;
             }
+                
         }
     }
+}
    

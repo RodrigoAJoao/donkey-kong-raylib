@@ -58,7 +58,7 @@ int main(){
         {
             if(gameState.flagPause == 1)
             {   //Função atualiza a posição do player a cada frame
-                playerMovement(&player,&mapa,enemy);
+                playerMovement(&player,&mapa,enemy,&gameState);
                 for(int i = 0; i < mapa.enemyCounter; i++)
                 {
                     EnemyMovement(&enemy[i],&mapa);
@@ -78,6 +78,27 @@ int main(){
                 
                 //GameOver(&gameState);
                 resetGame(&player,enemy,&mapa,&gameScore,&gameState);
+            }
+
+            if(gameState.flagDamage == 1)
+            {
+                gameState.flagDamage = 0;
+                
+                player.vida--;
+                gameScore.oneUp--;
+
+                if(player.vida <= 0)
+                {
+                    gameState.flagGameOver = 1;
+                }
+                else
+                {
+                    player.velocity.y = 0;
+                    player.isJumping = 0;
+                    player.subirEscada = 0;
+
+                    initPos(&mapa,&player,enemy);
+                }
             }
         }
 

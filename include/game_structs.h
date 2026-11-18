@@ -40,6 +40,7 @@ typedef struct {
     int flagStart;
     int flagPause;
     int flagGameOver;
+    int flagDamage;
 } ESTADOS;
 
 typedef struct{

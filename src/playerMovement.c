@@ -9,7 +9,7 @@
 
 
 
-void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
+void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e, ESTADOS *state)
 {
 	//Aqui faz a transformação de posição em aspect para a posição na matriz
 	int colunaPlayer = (int)((p->position.x - COLUNA) / COLUNA);
@@ -27,6 +27,8 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 	char charChao = mapa->matriz[linhaPlayer + 1][colunaPlayer];
 	//printf("mapaMatriz[%d][%d] = %c\n colunaPlayertrue = %0.2f linhaPlayerTrue = %0.2f \n", linhaPlayer, colunaPlayer, mapa->matriz[linhaPlayer][colunaPlayer],colunaPlayerFloat,linhaPlayerFloat);
 	//printf("%d", p->isJumping);
+
+	printf("charChao - %c\n", charChao);
 
 	//MOVIMENTO HORIZONTAL
 	//Checa se tem uma plataforma Z embaixo do jogador
@@ -63,6 +65,16 @@ void playerMovement(PLAYER *p, MAP *mapa, ENEMY *e)
 			}
 
 	}
+
+
+	if(charChao == ' ' && p->isJumping == 0)
+	{
+		state->flagDamage = 1;
+		p->isJumping = 1;
+	}
+
+
+
 
 	if(p->isJumping == 1)	
 	{

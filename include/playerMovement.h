@@ -5,6 +5,6 @@
 #include "game_structs.h"
 
 // Function prototype (declaration)
-void playerMovement(PLAYER *p, MAP *map, ENEMY *e);
+void playerMovement(PLAYER *p, MAP *map, ENEMY *e,ESTADOS *state);
 
 #endif
